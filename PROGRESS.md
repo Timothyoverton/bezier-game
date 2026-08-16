@@ -1,6 +1,12 @@
-# Progress note — resume here
+# Progress note
 
-## Status: game is built, tested, and confirmed working. NOT yet deployed/pushed to GitHub.
+## Status: DONE. Built, tested, deployed, and live.
+
+🚲 **Play it:** https://timothyoverton.github.io/bezier-game/
+
+Pushed to `Timothyoverton/bezier-game` (master branch = source, gh-pages
+branch = built site via `npm run deploy`). Verified live with a Playwright
+check against the actual GitHub Pages URL — loads clean, no console errors.
 
 ### Update: Playwright verification complete
 Ran a full headless Chromium playthrough (`/tmp/pw-test/test.mjs`, not part of

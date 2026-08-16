@@ -97,7 +97,9 @@ function CurveEditor({ level, points, onPointChange, editable, check, feedback, 
         </>
       )}
 
-      {ride && <BikeRider key={ride.key} p0={ride.p0} p1={ride.p1} p2={ride.p2} p3={ride.p3} endT={ride.endT} length={ride.length} onDone={ride.onDone} />}
+      {ride && (
+        <BikeRider key={ride.key} level={level} p0={ride.p0} p1={ride.p1} p2={ride.p2} p3={ride.p3} crashT={ride.crashT} onDone={ride.onDone} />
+      )}
       {staticBike && <Bike x={staticBike.x} y={staticBike.y} angle={staticBike.angle} crashed={staticBike.crashed} />}
     </svg>
   );

@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useState } from 'react';
-import { approximateLength } from './bezier.js';
 import { LEVELS } from './levels.js';
 import { checkCurve } from './track.js';
 import StartScreen from './components/StartScreen.jsx';
@@ -43,7 +42,6 @@ function App() {
       setFeedback({ type: 'channel', point: check.channelViolation });
       return;
     }
-    const length = approximateLength(check.points);
     const outcome = check.angleViolation ? 'crash' : 'success';
     setFeedback(null);
     setRideMeta({
@@ -51,8 +49,7 @@ function App() {
       p1: points.p1,
       p2: points.p2,
       p3: points.p3,
-      endT: check.angleViolation ? check.angleViolation.t : 1,
-      length,
+      crashT: check.angleViolation ? check.angleViolation.t : null,
       outcome,
       crashPoint: check.angleViolation || null,
     });
@@ -110,8 +107,7 @@ function App() {
                   p1: rideMeta.p1,
                   p2: rideMeta.p2,
                   p3: rideMeta.p3,
-                  endT: rideMeta.endT,
-                  length: rideMeta.length,
+                  crashT: rideMeta.crashT,
                   onDone: handleRideDone,
                 }
               : null
@@ -119,9 +115,7 @@ function App() {
           staticBike={
             stage === 'crashed' && rideMeta?.crashPoint
               ? { x: rideMeta.crashPoint.x, y: rideMeta.crashPoint.y, angle: 0, crashed: true }
-              : stage === 'success' && rideMeta
-                ? { x: rideMeta.p3.x, y: rideMeta.p3.y, angle: 0, crashed: false }
-                : null
+              : null
           }
         />
 

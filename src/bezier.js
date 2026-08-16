@@ -13,14 +13,6 @@ export function bezierPoint(p0, p1, p2, p3, t) {
   };
 }
 
-// dP/dt at t — the curve's tangent direction (not yet normalized).
-export function bezierTangent(p0, p1, p2, p3, t) {
-  const mt = 1 - t;
-  const dx = 3 * mt * mt * (p1.x - p0.x) + 6 * mt * t * (p2.x - p1.x) + 3 * t * t * (p3.x - p2.x);
-  const dy = 3 * mt * mt * (p1.y - p0.y) + 6 * mt * t * (p2.y - p1.y) + 3 * t * t * (p3.y - p2.y);
-  return { dx, dy };
-}
-
 // Sample the curve at `steps` evenly spaced t values (inclusive of both ends).
 export function sampleBezier(p0, p1, p2, p3, steps = 160) {
   const points = [];
@@ -34,16 +26,6 @@ export function sampleBezier(p0, p1, p2, p3, steps = 160) {
 
 export function pathD(p0, p1, p2, p3) {
   return `M ${p0.x} ${p0.y} C ${p1.x} ${p1.y}, ${p2.x} ${p2.y}, ${p3.x} ${p3.y}`;
-}
-
-// Approximate arc length by summing the sampled polyline segments — good
-// enough to pace the bike ride at a roughly constant speed.
-export function approximateLength(points) {
-  let length = 0;
-  for (let i = 1; i < points.length; i++) {
-    length += Math.hypot(points[i].x - points[i - 1].x, points[i].y - points[i - 1].y);
-  }
-  return length;
 }
 
 // Steepness of a segment relative to horizontal, in degrees (0 = flat, 90 = vertical).
